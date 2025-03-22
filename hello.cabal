@@ -48,16 +48,20 @@ common shared
   build-depends:
     , aeson
     , async
-    , base          >=4   && <5
+    , base                  >=4   && <5
     , data-default
     , directory
     , filepath
+    , http-types
     , mtl
     , optics-core
+    , optparse-applicative
     , profunctors
-    , relude        >=1.0
+    , relude                >=1.0
     , shower
     , time
+    , wai
+    , warp
     , with-utf8
 
   hs-source-dirs:     src
