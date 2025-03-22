@@ -18,7 +18,7 @@ app _req respond =
     responseLBS
       status200
       [(hContentType, "text/plain")]
-      "Hello world"
+      "Hello world (github:srid/hello)"
 
 -- Command-line options data type
 data Options = Options

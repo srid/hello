@@ -1,9 +1,13 @@
 { inputs, ... }:
 
+let
+  system = "x86_64-linux";
+  hello = inputs.self.packages.${system}.hello;
+in
 {
   flake = {
     nixosConfigurations.container = inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       modules =
         [
           ({ pkgs, ... }: {
@@ -11,9 +15,13 @@
 
             networking.firewall.allowedTCPPorts = [ 80 ];
 
-            services.httpd = {
-              enable = true;
-              adminAddr = "morty@example.org";
+            # Add hello service to systemd
+            systemd.services.hello = {
+              description = "Hello World";
+              wantedBy = [ "multi-user.target" ];
+              serviceConfig = {
+                ExecStart = "${hello}/bin/hello --host 0.0.0.0 --port 80";
+              };
             };
           })
         ];
